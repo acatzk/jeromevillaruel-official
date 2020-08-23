@@ -16,7 +16,7 @@ import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
-import apolloProvider from '@/apollo';
+import { apolloProvider } from '@/services';
 import VueTimeago from 'vue-timeago';
 import VuePageTransition from 'vue-page-transition';
 import BackToTop from 'vue-backtotop';
