@@ -96,7 +96,7 @@ export default {
     ButtonActions: () => import('@/components/pages/freedomwall/ButtonActions'),
     TextFieldFreedomWall: () => import('@/components/pages/freedomwall/TextFieldFreedomWall'),
     HeartCommentCountModal: () => import('@/components/pages/freedomwall/HeartCommentCountModal'),
-    DateFormat: () => import('@/components/DateFormat')
+    DateFormat: () => import('@/components/mixins/DateFormat')
   },
 
   methods: {

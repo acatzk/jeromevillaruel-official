@@ -96,7 +96,7 @@ export default {
         MyInfoCard: () => import('@/components/pages/about/MyInfoCard'),
         CommentPost: () => import('./CommentPost'),
         HeartCommentCountModal: () => import('@/components/pages/freedomwall/HeartCommentCountModal'),
-        DateFormat: () => import('@/components/DateFormat')
+        DateFormat: () => import('@/components/mixins/DateFormat')
     },
 
     apollo: {
