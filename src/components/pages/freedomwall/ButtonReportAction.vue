@@ -82,7 +82,7 @@ export default {
     name: 'ButtonReportAction',
 
     components: {
-        Alert: () => import('@/components/Alert')
+        Alert: () => import('@/components/mixins/Alert')
     },
 
     props: ['post_id'],
