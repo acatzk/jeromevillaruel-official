@@ -1,5 +1,5 @@
 <template>
-  <back-to-top bottom="50px" right="50px">
+  <back-to-top>
     <b-button class="btn-to-top" variant="primary">
       <b-icon icon="chevron-up"></b-icon>
     </b-button>
@@ -9,9 +9,9 @@
 <style scoped>
 .btn-to-top {
   width: 60px;
-  height: 60px;
+  height: 50px;
   padding: 10px 16px;
-  border-radius: 50%;
+  border-radius: 10%;
   font-size: 22px;
   line-height: 22px;
 }
