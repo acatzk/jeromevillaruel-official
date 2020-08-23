@@ -1,9 +1,9 @@
 import Vue from 'vue'
 
-import VueApollo from "vue-apollo";
-import { ApolloClient } from "apollo-client";
-import { HttpLink } from "apollo-link-http";
-import { InMemoryCache } from "apollo-cache-inmemory";
+import VueApollo from "vue-apollo"
+import { ApolloClient } from "apollo-client"
+import { HttpLink } from "apollo-link-http"
+import { InMemoryCache } from "apollo-cache-inmemory"
 
 import { split } from 'apollo-link'
 import { WebSocketLink } from 'apollo-link-ws'
@@ -45,11 +45,9 @@ const apolloClient = new ApolloClient({
   
   Vue.use(VueApollo);
 
-  const apolloProvider = new VueApollo({
+  export const apolloProvider = new VueApollo({
     defaultClient: apolloClient,
     defaultOptions: {
       $loadingKey: "loading"
     }
-  });
-
-  export default apolloProvider
+  })
