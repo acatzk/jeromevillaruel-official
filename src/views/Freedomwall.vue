@@ -1,5 +1,9 @@
 <template>
   <div class="freedomwall">
+
+    <user-info 
+    />
+
     <b-container class="mt-4">
       <b-row class="justify-content-center">
         <b-col sm="4" class="mb-2">
@@ -96,7 +100,8 @@ export default {
     ButtonActions: () => import('@/components/pages/freedomwall/ButtonActions'),
     TextFieldFreedomWall: () => import('@/components/pages/freedomwall/TextFieldFreedomWall'),
     HeartCommentCountModal: () => import('@/components/pages/freedomwall/HeartCommentCountModal'),
-    DateFormat: () => import('@/components/mixins/DateFormat')
+    DateFormat: () => import('@/components/mixins/DateFormat'),
+    UserInfo: () => import('@/components/pages/freedomwall/UserInfo')
   },
 
   methods: {
