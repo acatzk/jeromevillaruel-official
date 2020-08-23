@@ -2,6 +2,7 @@
   <div class="freedomwall">
 
     <user-info 
+      v-if="!currentUser"
     />
 
     <b-container class="mt-4">
@@ -78,6 +79,7 @@
 
 <script>
 
+import { currentUser } from '@/services'
 import { GET_ALL_POSTS_FREEDOM_WALL } from '@/graphql/queries'
 import { GET_ALL_POSTS_FREEDOM_WALL_SUBSCRIPTION } from '@/graphql/subscriptions'
 
@@ -90,7 +92,8 @@ export default {
       loading: false,
       heartModal: false,
       postHeartCount: false,
-      readMore: false
+      readMore: false,
+      currentUser: currentUser
     }
   },
 
