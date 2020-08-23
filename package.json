@@ -22,6 +22,7 @@
     "apollo-link-ws": "^1.0.20",
     "bootstrap-vue": "^2.1.0",
     "core-js": "^3.6.4",
+    "firebase": "^4.8.1",
     "graphql": "^15.0.0",
     "graphql-tag": "^2.10.3",
     "moment": "^2.27.0",
