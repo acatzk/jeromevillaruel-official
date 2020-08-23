@@ -13,9 +13,9 @@
             <b-card-sub-title class="mb-2">What's on your mind?</b-card-sub-title>
             <hr>
             
-            <!-- Text Field Free Wall -->
-             <text-field-freedom-wall />
-            <!-- End TextField Form -->
+             <text-field-freedom-wall v-if="currentUser"/>
+
+             <authentication v-else/>
 
           </b-card>
           <p id="copyright">Kindly keep your posts respectful and follow the system functionality here in Freedom Wall.</p>
@@ -100,7 +100,8 @@ export default {
     TextFieldFreedomWall: () => import('@/components/pages/freedomwall/TextFieldFreedomWall'),
     HeartCommentCountModal: () => import('@/components/pages/freedomwall/HeartCommentCountModal'),
     DateFormat: () => import('@/components/mixins/DateFormat'),
-    UserInfo: () => import('@/components/pages/freedomwall/UserInfo')
+    UserInfo: () => import('@/components/pages/freedomwall/UserInfo'),
+    Authentication: () => import('@/components/pages/auth/Authentication')
   },
 
   methods: {
