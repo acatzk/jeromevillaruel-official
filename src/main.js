@@ -20,6 +20,7 @@ import { apolloProvider } from '@/services';
 import VueTimeago from 'vue-timeago';
 import VuePageTransition from 'vue-page-transition';
 import BackToTop from 'vue-backtotop';
+import AOS from 'aos';
 
 library.add(faUserSecret)
 library.add(faFontAwesome)
@@ -43,9 +44,14 @@ Vue.use(VueTimeago, {
   }
 })
 
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+
 new Vue({
   router,
   store,
   apolloProvider,
+  created () {
+    AOS.init()
+  },
   render: h => h(App)
 }).$mount("#app");
