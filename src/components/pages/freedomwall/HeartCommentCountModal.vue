@@ -79,7 +79,7 @@ export default {
     props: ['post_id'],
 
     components: {
-        Spinner: () => import('@/components/Spinner')
+        Spinner: () => import('@/components/mixins/Spinner')
     },
 
     data () {

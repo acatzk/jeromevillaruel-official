@@ -91,7 +91,7 @@ export default {
     },
 
     components: {
-        Spinner: () => import('@/components/Spinner'),
+        Spinner: () => import('@/components/mixins/Spinner'),
         ButtonActions: () => import('@/components/pages/freedomwall/ButtonActions'),
         MyInfoCard: () => import('@/components/pages/about/MyInfoCard'),
         CommentPost: () => import('./CommentPost'),

@@ -92,7 +92,7 @@ export default {
 
 
   components: {
-    Spinner: () => import('@/components/Spinner'),
+    Spinner: () => import('@/components/mixins/Spinner'),
     ButtonActions: () => import('@/components/pages/freedomwall/ButtonActions'),
     TextFieldFreedomWall: () => import('@/components/pages/freedomwall/TextFieldFreedomWall'),
     HeartCommentCountModal: () => import('@/components/pages/freedomwall/HeartCommentCountModal'),

@@ -27,7 +27,7 @@ export default {
     name: 'CommentPost',
 
     components: {
-        Spinner: () => import('@/components/Spinner')
+        Spinner: () => import('@/components/mixins/Spinner')
     },
 
     data () {

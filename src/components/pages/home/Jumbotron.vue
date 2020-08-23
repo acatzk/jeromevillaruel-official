@@ -70,7 +70,7 @@ export default {
   name: 'Jumbotron',
 
   components: {
-    Spinner: () => import('@/components/Spinner'),
+    Spinner: () => import('@/components/mixins/Spinner'),
     Brix: () => import('./Brix.vue')
   },
 
