@@ -21,6 +21,7 @@ import VueTimeago from 'vue-timeago';
 import VuePageTransition from 'vue-page-transition';
 import BackToTop from 'vue-backtotop';
 import AOS from 'aos';
+import { fb } from '@/services'
 
 library.add(faUserSecret)
 library.add(faFontAwesome)
@@ -46,12 +47,19 @@ Vue.use(VueTimeago, {
 
 import 'aos/dist/aos.css'; // You can also use <link> for styles
 
-new Vue({
-  router,
-  store,
-  apolloProvider,
-  created () {
-    AOS.init()
-  },
-  render: h => h(App)
-}).$mount("#app");
+
+let app = ''
+
+fb.auth().onAuthStateChanged(() => {
+  if (!app) {
+    new Vue({
+      router,
+      store,
+      apolloProvider,
+      created () {
+        AOS.init()
+      },
+      render: h => h(App)
+    }).$mount("#app")
+  }
+})
