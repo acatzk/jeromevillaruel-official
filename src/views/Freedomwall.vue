@@ -1,12 +1,13 @@
 <template>
   <div class="freedomwall">
+    <b-container>
 
-    <user-info 
-      v-if="!currentUser"
-    />
+      <user-info 
+        v-if="currentUser"
+      />
 
-    <b-container class="mt-4">
       <b-row class="justify-content-center">
+
         <b-col sm="4" class="mb-2">
           <b-card title="Freedom Wall" id="card-about">
             <b-card-sub-title class="mb-2">What's on your mind?</b-card-sub-title>
@@ -24,53 +25,48 @@
           <div v-if="$apollo.loading" class="mt-3">
             <spinner />
           </div>
-          <b-container 
-            v-else
-          >
             <b-card 
-                id="card-about" 
-                class="mb-3" 
-                data-aos="fade-left"
-                v-for="(post, index) in posts " :key="index"
-              >
-                <div class="fl">
-                  <b-card-title>
-                    <b-icon icon="chat-quote"></b-icon> {{ capitalize(post.name) }}
-                    <br><span id="lbldate">
-                      Posted on <date-format :created_at="post.created_at.split('T')[0]" /> <b-icon icon="clock"></b-icon> <timeago :datetime="post.created_at" :auto-update="60"></timeago>
-                    </span>
-                  </b-card-title>
-                  <b-card-text max-width="100" class="show-post">
-                    <span v-if="post.posts.length >= 200 && !readMore">{{ post.posts.slice(0, 200) }}....
-                      <br>
-                      <a href="#" @click="readMore = !readMore">Read more</a>
-                    </span>
-                    <span v-else-if="post.posts.length > 200 && readMore">
-                      {{ post.posts }}
-                      <br>
-                      <a href="#" @click="readMore = !readMore">Show less</a>
-                    </span>
-                    <span v-else>
-                      {{ post.posts }}
-                    </span>
-                  </b-card-text>
-                  <br>
+              id="card-about" 
+              class="mb-3" 
+              v-for="(post, index) in posts " :key="index"
+            >
+              <div class="fl">
+                <b-card-title>
+                  <b-icon icon="chat-quote"></b-icon> {{ capitalize(post.name) }}
+                  <br><span id="lbldate">
+                    Posted on <date-format :created_at="post.created_at.split('T')[0]" /> <b-icon icon="clock"></b-icon> <timeago :datetime="post.created_at" :auto-update="60"></timeago>
+                  </span>
+                </b-card-title>
+                <b-card-text max-width="100" class="show-post">
+                  <span v-if="post.posts.length >= 200 && !readMore">{{ post.posts.slice(0, 200) }}....
+                    <br>
+                    <a href="#" @click="readMore = !readMore">Read more</a>
+                  </span>
+                  <span v-else-if="post.posts.length > 200 && readMore">
+                    {{ post.posts }}
+                    <br>
+                    <a href="#" @click="readMore = !readMore">Show less</a>
+                  </span>
+                  <span v-else>
+                    {{ post.posts }}
+                  </span>
+                </b-card-text>
+                <br>
 
-                  <heart-comment-count-modal 
-                    :post_id="post.id"
-                  />
+                <heart-comment-count-modal 
+                  :post_id="post.id"
+                />
 
-                </div>
-                <hr>
-                <div class="fr">
+              </div>
+              <hr>
+              <div class="fr">
 
-                  <button-actions 
-                    :post_id="post.id"
-                  />
+                <button-actions 
+                  :post_id="post.id"
+                />
 
-                </div>
-              </b-card>
-            </b-container>
+              </div>
+            </b-card>
         </b-col>
       </b-row>
     </b-container>
