@@ -12,7 +12,7 @@
 
     <foot-bar />  <!-- FOOTER BAR -->
 
-    <back-to-top />  <!-- SCROLL UP -->
+    <scroll-to-top />  <!-- SCROLL UP -->
 
   </app-bar> <!-- APP BAR SLOT WITH id=app -->
 
@@ -28,7 +28,7 @@ export default {
 
       NavBar: () => import('@/components/layouts/Navbar'),
 
-      BackToTop: () => import('@/components/BackToTop'),
+      ScrollToTop: () => import('@/components/mixins/ScrollToTop'),
 
       FootBar: () => import('@/components/layouts/FootBar')
       
