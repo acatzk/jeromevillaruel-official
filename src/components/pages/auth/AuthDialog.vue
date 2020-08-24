@@ -17,6 +17,7 @@
                             type="email"
                             required
                             id="txtpost" 
+                            v-model="email"
                         ></b-form-input>
                     </b-form-group>
 
@@ -27,12 +28,13 @@
                             required
                             id="txtpost" 
                             type="password"
+                            v-model="password"
                         ></b-form-input>
                     </b-form-group>
 
                     <b-row>
                         <b-col>
-                            <b-button type="submit" block variant="primary">Login</b-button>
+                            <b-button type="submit" block variant="primary">Sign In</b-button>
                         </b-col>
                         <b-col>
                             <b-button type="reset" block variant="outline-light">Cancel</b-button>
@@ -49,6 +51,7 @@
                         <b-form-input
                             required
                             id="txtpost" 
+                            v-model="name"
                         ></b-form-input>
                     </b-form-group>
 
@@ -58,6 +61,7 @@
                         <b-form-input
                             required
                             id="txtpost" 
+                            v-model="username"
                         ></b-form-input>
                     </b-form-group>
 
@@ -67,6 +71,7 @@
                         <b-form-input
                             type="email"
                             id="txtpost" 
+                            v-model="email"
                             required
                         ></b-form-input>
                     </b-form-group>
@@ -78,15 +83,24 @@
                             required
                             id="txtpost" 
                             type="password"
+                            v-model="password"
                         ></b-form-input>
                     </b-form-group>
 
                     <b-row>
                         <b-col>
-                            <b-button type="submit" block variant="primary">Sign Up</b-button>
+                            <b-button 
+                                type="submit" 
+                                block 
+                                variant="primary"
+                            >Sign Up</b-button>
                         </b-col>
                         <b-col>
-                            <b-button type="reset" block variant="outline-light">Cancel</b-button>
+                            <b-button 
+                                type="reset" 
+                                block 
+                                variant="outline-light"
+                            >Cancel</b-button>
                         </b-col>
                     </b-row>
                 </b-form>
@@ -109,7 +123,11 @@
 
         data () {
             return {
-                loading: false
+                loading: false,
+                name: null,
+                username: null,
+                email: null,
+                password: null
             }
         },
 
