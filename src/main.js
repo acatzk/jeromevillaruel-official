@@ -22,7 +22,8 @@ import VuePageTransition from 'vue-page-transition';
 import BackToTop from 'vue-backtotop';
 import AOS from 'aos';
 import { fb } from '@/services'
-
+import VueSocialSharing from 'vue-social-sharing'
+ 
 library.add(faUserSecret)
 library.add(faFontAwesome)
 library.add(faSpinner, faAlignLeft)
@@ -37,6 +38,7 @@ Vue.use(Vuelidate)
 Vue.use(VueSweetalert2)
 Vue.use(VuePageTransition)
 Vue.use(BackToTop)
+Vue.use(VueSocialSharing)
 
 Vue.use(VueTimeago, {
   locale: 'en',
