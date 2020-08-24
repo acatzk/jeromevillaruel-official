@@ -11,7 +11,8 @@
                 <b-img :src="require('@/assets/photos/veo.jpg')" rounded="circle" />
               </b-col>
               <b-col md="12" sm="12" class="user-detail-section1 text-center">
-                <button class="btn btn-defult resume"> Download Resume</button> <br>
+                <a class="btn btn-defult resume" :href="source" target="_blank">Download Resume</a>
+                <br>
               </b-col>
               <b-row class="user-detail-row">
                 <b-col md="12" sm="12" class="user-detail-section2 pull-left">
@@ -192,6 +193,18 @@
     </b-row>
    </b-container>
 </template>
+
+<script>
+  export default {
+    name: 'about',
+
+    data () {
+      return {
+        source: 'https://firebasestorage.googleapis.com/v0/b/jj-official-a58dc.appspot.com/o/Resume%20Updated.docx?alt=media&token=bc34f5fc-23b5-4df7-a450-6aec0bea21f2'
+      }
+    }
+  }
+</script>
 
 <style lang="scss">
 .frontpage {
