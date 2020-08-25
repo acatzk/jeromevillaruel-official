@@ -2,7 +2,7 @@
     <form @submit.prevent="freedomPost">
 
 
-        <b-form-group label="Name">
+        <b-form-group label="Name" v-show="false">
             <b-form-input
                 id="txtpost"
                 v-for="user in users" :key="user.uid"
