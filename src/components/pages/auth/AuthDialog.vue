@@ -8,7 +8,9 @@
         <b-tabs fill>
             
             <b-tab title="Sign In">
-                <sign-in-form />
+                <sign-in-form 
+                   @close="show = !show"
+                />
             </b-tab>
 
             <b-tab title="Sign Up">

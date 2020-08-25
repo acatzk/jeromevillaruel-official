@@ -92,7 +92,6 @@
             }
         },
 
-        
         validations: {
             email: {
                 required,
@@ -115,6 +114,7 @@
                    auth.signInWithEmailAndPassword(email, password)
                     .then(() => {
                         toastAlertStatus('success', 'Sign In Successfully')
+                        this.$emit('close')
                         this.onClickReset()
                     })
                     .catch(error => {
