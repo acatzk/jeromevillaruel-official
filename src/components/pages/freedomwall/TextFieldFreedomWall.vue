@@ -49,7 +49,7 @@
 
 <script>
 
-import { toastAlertStatus } from '@/assets/js/toastAlertStatus'
+import { toastAlertStatus } from '@/utils'
 
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 

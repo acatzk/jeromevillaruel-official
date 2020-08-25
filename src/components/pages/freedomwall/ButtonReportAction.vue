@@ -73,7 +73,7 @@
 
 <script>
 
-import { toastAlertStatus } from '@/assets/js/toastAlertStatus'
+import { toastAlertStatus } from '@/utils'
 import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 import { GET_ADMIN_PASSWORD } from '@/graphql/queries'
 import { REPORT_DELETE_MUTATION } from '@/graphql/mutations'

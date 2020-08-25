@@ -60,7 +60,7 @@
 
 <script>
 
-import { toastAlertStatus } from '@/assets/js/toastAlertStatus'
+import { toastAlertStatus } from '@/utils'
 import { required, email } from 'vuelidate/lib/validators'
 import { ADD_SUBSCRIBER_MUTATION } from '@/graphql/mutations'
 import { GET_ALL_SUBSCRIBER_QUERY, COUNT_ALL_SUBSCRIBER_QUERY } from '@/graphql/queries'
