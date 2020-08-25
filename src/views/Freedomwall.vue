@@ -75,7 +75,7 @@
 
 <script>
 
-import { currentUser } from '@/services'
+import { fb } from '@/services'
 import { GET_ALL_POSTS_FREEDOM_WALL } from '@/graphql/queries'
 import { GET_ALL_POSTS_FREEDOM_WALL_SUBSCRIPTION } from '@/graphql/subscriptions'
 
@@ -89,7 +89,7 @@ export default {
       heartModal: false,
       postHeartCount: false,
       readMore: false,
-      currentUser: currentUser
+      currentUser: fb.auth().currentUser
     }
   },
 
