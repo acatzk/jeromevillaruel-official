@@ -11,7 +11,7 @@
                 </b-card-title>
                 <b-dropdown class="ml-auto" text="@joshua" variant="outline-primary">
                     <b-dropdown-item>Profile</b-dropdown-item>
-                    <b-dropdown-item>Logout</b-dropdown-item>
+                    <b-dropdown-item @click="onClickLogout">Logout</b-dropdown-item>
                 </b-dropdown>
             </b-row>
         </b-card>
@@ -20,7 +20,9 @@
 
 <script>
 
-    import { currentuser } from '@/services'
+    import { toastAlertStatus } from '@/utils'
+
+    import { currentuser, auth } from '@/services'
 
     export default {
         name: 'user-info',
@@ -28,6 +30,18 @@
         data () {
             return {
                 currentuser: currentuser
+            }
+        },
+
+        methods: {
+            onClickLogout () {
+                auth.signOut()
+                 .then(() => {
+                    toastAlertStatus('success', 'Logout Successfully')
+                 })
+                 .catch(error => {
+                     toastAlertStatus('error', error)
+                 })
             }
         }
         
