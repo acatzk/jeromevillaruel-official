@@ -1,16 +1,14 @@
 <template>
     <form @submit.prevent="freedomPost">
+
+
         <b-form-group label="Name">
             <b-form-input
                 id="txtpost"
-                v-model.trim="$v.name.$model"
-                :class="{ 'is-invalid' : $v.name.$error, 'is-valid' : !$v.name.$invalid }"
+                v-for="user in users" :key="user.uid"
+                :value="name = user.name"
+                :disabled="true"
             ></b-form-input>
-            <div class="invalid-feedback feedback">
-                <span v-if="!$v.name.required">Name is required</span>
-                <span v-if="!$v.name.minLength">Name must have at least {{ $v.name.$params.minLength.min }} letters. </span>
-                <span v-if="!$v.name.maxLength">Name must have at most {{ $v.name.$params.maxLength.max }} letters.</span>
-            </div>
         </b-form-group>
 
         <b-form-group label="Post anything here...">
@@ -49,59 +47,89 @@
 
 <script>
 
-import { toastAlertStatus } from '@/utils'
+    import { fb } from '@/services'
 
-import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+    import { GET_SINGLE_USER } from '@/graphql/queries' 
 
-import { POST_FREEDOM_WALL } from '@/graphql/mutations'
+    import { GET_SINGLE_USER_SUBSCRIPTION } from '@/graphql/subscriptions'
 
-export default {
-    name: 'TextFieldFreedomWall',
+    import { toastAlertStatus } from '@/utils'
 
-    data () {
-        return {
-            name: '',
-            freedomWords: '',
-            loading: false,
-        }
-    },
+    import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 
-    validations: {
-        name: {
-            required,
-            minLength: minLength(5),
-            maxLength: maxLength(25)
+    import { POST_FREEDOM_WALL } from '@/graphql/mutations'
+
+    export default {
+        name: 'TextFieldFreedomWall',
+
+        data () {
+            return {
+                name: '',
+                freedomWords: '',
+                loading: false,
+                firebase_id: fb.auth().currentUser.uid
+            }
         },
-        freedomWords: {
-            required,
-            minLength: minLength(20),
-        }
-    },
 
-    methods: {
-        freedomPost() {
-            this.$v.$touch()
-            if (!this.$v.$invalid) {
+        validations: {
+            freedomWords: {
+                required,
+                minLength: minLength(20),
+            }
+        },
 
-            this.loading = true
+        methods: {
+            freedomPost() {
+                this.$v.$touch()
+                if (!this.$v.$invalid) {
 
-            const { name, freedomWords } = this.$data
+                    this.loading = true
 
-            this.$apollo.mutate({
-                mutation: POST_FREEDOM_WALL,
-                variables: {
-                    name: name, 
-                    posts: freedomWords
+                    const { name, freedomWords } = this.$data
+
+                    this.$apollo.mutate({
+                        mutation: POST_FREEDOM_WALL,
+                        variables: {
+                            name: name, 
+                            posts: freedomWords
+                        }
+                    }).then(() => {
+                        toastAlertStatus('success', `Thank you for your post ${this.name}`)
+                        this.loading = false
+                        // this.name = ''
+                        this.freedomWords = ''
+                        this.$v.$reset()
+                    }).catch(error => toastAlertStatus('error', error))
                 }
-            }).then(() => {
-                toastAlertStatus('success', `Thank you for your post ${this.name}`)
-                this.loading = false
-                // this.name = ''
-                this.freedomWords = ''
-                this.$v.$reset()
-            }).catch(error => toastAlertStatus('error', error))
+            }
+        },
+
+        apollo: {
+            users: {
+                query: GET_SINGLE_USER,
+                variables () {
+                    return {
+                        firebase_id: this.firebase_id
+                    }
+                },
+                subscribeToMore: {
+                    document: GET_SINGLE_USER_SUBSCRIPTION,
+                    variables() {
+                        return {
+                            firebase_id: this.firebase_id
+                        }
+                    },
+                    updateQuery(previousResult, { subscriptionData }) {
+                        if (previousResult) {
+                            return {
+                                users: [
+                                    ...subscriptionData.data.users
+                                ]
+                            }
+                        }
+                    }
+                }
             }
         }
     }
-}
 </script>
