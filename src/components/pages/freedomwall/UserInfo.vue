@@ -33,6 +33,8 @@
 
     import { GET_SINGLE_USER } from '@/graphql/queries' 
 
+    import { GET_SINGLE_USER_SUBSCRIPTION } from '@/graphql/subscriptions'
+
     export default {
         name: 'user-info',
 
@@ -64,6 +66,23 @@
                 variables () {
                     return {
                         firebase_id: this.firebase_id
+                    }
+                },
+                subscribeToMore: {
+                    document: GET_SINGLE_USER_SUBSCRIPTION,
+                    variables() {
+                        return {
+                            firebase_id: this.firebase_id
+                        }
+                    },
+                    updateQuery(previousResult, { subscriptionData }) {
+                        if (previousResult) {
+                            return {
+                                users: [
+                                    ...subscriptionData.data.users
+                                ]
+                            }
+                        }
                     }
                 }
             }
