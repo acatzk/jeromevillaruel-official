@@ -70,3 +70,16 @@ mutation reportMutation($post_id: uuid!) {
   }
 }
 `
+
+export const ADD_USERS_MUTATION = gql`
+  mutation AddUserMutation($firebase_id: String!, $name: String!, $username: String!, $email: String!, $password: String!) {
+    insert_users(objects: {firebase_id: $firebase_id, name: $name, username: $username, email: $email, password: $password}) {
+      affected_rows
+      returning {
+        id
+        firebase_id
+        name
+      }
+    }
+  }
+`
