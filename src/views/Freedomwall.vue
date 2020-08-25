@@ -62,6 +62,7 @@
               <div class="fr">
 
                 <button-actions 
+                  v-show="currentUser"
                   :post_id="post.id"
                 />
 
