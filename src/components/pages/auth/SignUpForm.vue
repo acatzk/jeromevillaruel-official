@@ -1,19 +1,11 @@
 <template>
     <b-form @submit.prevent="onClickSignUp">
-        <b-form-group
-            label="Name"
-        >
-            <b-form-input
-                id="txtpost" 
-                v-model.trim="$v.name.$model"
-                :class="{ 'is-invalid' : $v.name.$error, 'is-valid' : !$v.name.$invalid }"
-            ></b-form-input>
-            <div class="invalid-feedback feedback">
-                <span v-if="!$v.name.required">Name is required</span>
-                <span v-if="!$v.name.minLength">Name must have at least {{ $v.name.$params.minLength.min }} letters. </span>
-                <span v-if="!$v.name.maxLength">Name must have at most {{ $v.name.$params.maxLength.max }} letters.</span>
-            </div>
-        </b-form-group>
+
+        <alert 
+            v-if="error"
+            :text="`${error}`"
+            class="mt-2"
+        />
 
         <b-form-group
             label="Username"
@@ -27,6 +19,21 @@
                 <span v-if="!$v.username.required">Username is required</span>
                 <span v-if="!$v.username.minLength">Username must have at least {{ $v.username.$params.minLength.min }} letters. </span>
                 <span v-if="!$v.username.maxLength">Username must have at most {{ $v.username.$params.maxLength.max }} letters.</span>
+            </div>
+        </b-form-group>
+
+        <b-form-group
+            label="Name"
+        >
+            <b-form-input
+                id="txtpost" 
+                v-model.trim="$v.name.$model"
+                :class="{ 'is-invalid' : $v.name.$error, 'is-valid' : !$v.name.$invalid }"
+            ></b-form-input>
+            <div class="invalid-feedback feedback">
+                <span v-if="!$v.name.required">Name is required</span>
+                <span v-if="!$v.name.minLength">Name must have at least {{ $v.name.$params.minLength.min }} letters. </span>
+                <span v-if="!$v.name.maxLength">Name must have at most {{ $v.name.$params.maxLength.max }} letters.</span>
             </div>
         </b-form-group>
 
@@ -64,11 +71,22 @@
         <b-row>
             <b-col>
                 <b-button 
+                    v-if="!loading"
                     type="submit" 
                     block 
                     variant="primary"
                     @click="onClickSignUp"
                 >Sign Up</b-button>
+                <b-button 
+                    v-else 
+                    disabled 
+                    class="btn btn-primary btn-md" 
+                    id="btnpost"
+                    block
+                >
+                <b-spinner small type="grow"></b-spinner>
+                    Loading...
+                </b-button>
             </b-col>
             <b-col>
                 <b-button 
@@ -84,10 +102,20 @@
 
 <script>
 
+    import { auth } from '@/services'
+
+    import { toastAlertStatus } from '@/utils'
+
+    import { ADD_USERS_MUTATION } from '@/graphql/mutations'
+
     import { required, email, minLength, maxLength } from 'vuelidate/lib/validators'
 
     export default {
         name: 'sign-up-form',
+
+        components: {
+            Alert: () => import('@/components/mixins/Alert')
+        },
         
         data () {
             return {
@@ -95,7 +123,8 @@
                 name: null,
                 username: null,
                 email: null,
-                password: null
+                password: null,
+                error: null
             }
         },
 
@@ -125,8 +154,45 @@
             onClickSignUp () {
                 this.$v.$touch()
                 if (!this.$v.$invalid) {
-                    this.onClickReset()
+
+                    this.loading = true
+
+                    const { name, username, email, password } = this.$data
+
+                    auth.createUserWithEmailAndPassword(email, password)
+                     .then((firebase) => {
+                        this.createUserInHasura(firebase, name, username, email, password)
+                     })
+                     .catch(error => {
+                         this.loading = false
+                         this.error = error
+                         toastAlertStatus('error', error)
+                     })
                 }
+            },
+
+            createUserInHasura (firebase, name, username, email, password) {
+                this
+                 .$apollo
+                 .mutate({
+                     mutation: ADD_USERS_MUTATION,
+                     variables: {
+                        firebase_id: firebase.uid,
+                        name: name,
+                        username: username,
+                        email: email,
+                        password: password
+                     }
+                 })
+                 .then(() => {
+                    toastAlertStatus('success', 'Sign Up Successfully. Please Sign In.')
+                    this.onClickReset()
+                 })
+                 .catch(error => {
+                    this.loading = false
+                    this.error = error
+                    toastAlertStatus('error', error)
+                })
             },
 
             onClickReset () {
@@ -134,6 +200,8 @@
                 this.username = null
                 this.email = null
                 this.password = null
+                this.error = null
+                this.loading = false
                 this.$v.$reset()
             }
         }
