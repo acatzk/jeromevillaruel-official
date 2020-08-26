@@ -25,10 +25,12 @@
           <div v-if="$apollo.loading" class="mt-3">
             <spinner />
           </div>
+          <b-container>
             <b-card 
               id="card-about" 
               class="mb-3" 
               v-for="(post, index) in posts " :key="index"
+              data-aos="fade-left"
             >
               <div class="fl">
                 <b-card-title>
@@ -68,6 +70,7 @@
 
               </div>
             </b-card>
+          </b-container>
         </b-col>
       </b-row>
     </b-container>
